@@ -1,0 +1,18 @@
+@hostAddress = http://localhost:5081
+
+GET {{hostAddress}}/health/
+Accept: application/json
+###
+
+POST {{hostAddress}}/register/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "Email": "test3@test.com",
+    "Handle": "test3",
+    "DisplayName" : "test",
+    "Password" : "test"    
+}
+
+### 
