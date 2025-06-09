@@ -1,0 +1,19 @@
+using SocialApp.WebApi.Data._Shared;
+
+namespace SocialApp.WebApi.Data.User;
+
+public record CommentDocument(string ConversationUserId, string ConversationId, string UserId, string CommentId, string Content, DateTime LastModify, int Version, string ProcessingRegion)
+    : Document(Key(ConversationUserId, ConversationId, CommentId)), IRegionOwnedDocument
+{
+    public static DocumentKey Key(string conversationUserId, string conversationId, string commentId)
+    {
+        var pk = "user:"+conversationUserId;
+        var id = $"conversation:{conversationId}:comment:{commentId}:comment";
+        return new DocumentKey(pk, id);
+    }
+    
+    public CommentCountsDocument CreateCounts()
+    {
+        return new CommentCountsDocument(this.ConversationUserId, this.ConversationId, this.UserId, this.CommentId);
+    }
+}
